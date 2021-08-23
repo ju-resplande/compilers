@@ -1,14 +1,14 @@
 import string
 
 class AFD():
-    def _set_input(char: str) -> str:
+    def _set_input(self, char: str) -> str:
         if char in string.digits:
             return 'D'
         elif char in string.ascii_letters:
             return 'L'
         elif char == '.':
             return '\.'
-        elif char in _alphabet:
+        elif char in self._alphabet:
             return char
         else:
             return 'ERRO'
@@ -16,7 +16,7 @@ class AFD():
     def run(self, char: str, state: int):
         char_input = self._set_input(char)
         if char_input == 'ERRO':
-            return char_input
+            return 22
         elif char_input in self._transitions[state]:
             return self._transitions[state]   
 
@@ -44,23 +44,6 @@ class AFD():
         ' ',
         '\t',
         '\n',
-    }
-
-    token_classes = {
-        2: 'RCB',
-        3: 'OPR',
-        5: 'id',
-        6: 'NUM',
-        7: 'NUM',
-        10: 'Num',
-        12: 'comentário',
-        14: 'lit',
-        16: 'OPM',
-        17: 'AB_P',
-        18: 'FC_P',
-        19: 'PT_V',
-        20: 'Vir',
-        21: 'EOF',
     }
 
     _transitions = {

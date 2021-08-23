@@ -1,26 +1,55 @@
-from dataclasses import dataclass
-from enum import Enum, auto
+from dataclasses import dataclass, field
+from typing import Set, Dict
+
 
 @dataclass
 class Token:
     lexema: str
-    classe: str
+    classe: str = field(init=False)
     tipo: str
 
+    def __post_init__(self): 
+        if self.classe == 'NUM':
+            self.tipo = 'real' if '.' in lexema else 'inteiro'
+        elif self.classe == 'lit':
+            self.tipo = 'lit'
+        elif self.classe == 'id':
+            self.tipo = 'id'
+        else:
+            self.tipo = 'NULO'
 
-RESERVED_WORDS = {
-    Token(lexema='inicio', classe='inicio', tipo='NULO'),
-    Token(lexema='varinicio', classe='varinicio', tipo='NULO'),
-    Token(lexema='varfim', classe='varfim', tipo='NULO'),
-    Token(lexema='escreva', classe='escreva', tipo='NULO'),
-    Token(lexema='leia', classe='leia', tipo='NULO'),
-    Token(lexema='se', classe='se', tipo='NULO'),
-    Token(lexema='entao', classe='entao', tipo='NULO'),
-    Token(lexema='fimse', classe='fimse', tipo='NULO'),
-    Token(lexema='repita', classe='repita', tipo='NULO'),
-    Token(lexema='fimrepita', classe='fimrepita', tipo='NULO'),
-    Token(lexema='fim', classe='fim', tipo='NULO'),
-    Token(lexema='inteiro', classe='inteiro', tipo='inteiro'),
-    Token(lexema='literal', classe='literal', tipo='literal'),
-    Token(lexema='real', classe='real', tipo='real'),
+
+CLASS_MAPPING: Dict[int, str] = {
+    2: 'RCB',
+    3: 'OPR',
+    5: 'id',
+    6: 'NUM',
+    7: 'NUM',
+    10: 'Num',
+    12: 'comentário',
+    14: 'lit',
+    16: 'OPM',
+    17: 'AB_P',
+    18: 'FC_P',
+    19: 'PT_V',
+    20: 'Vir',
+    21: 'EOF',
+    22: 'ERRO',
+}
+
+RESERVED_WORDS: Set[str] = {
+    'inicio',
+    'varinicio',
+    'varfim',
+    'escreva',
+    'leia',
+    'se',
+    'entao',
+    'fimse',
+    'repita',
+    'fimrepita',
+    'fim',
+    'inteiro',
+    'literal',
+    'real',
 }

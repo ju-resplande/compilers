@@ -5,8 +5,8 @@ from token import Token
 class SymbolTable:
     _tokens: Set[Token]
 
-    def __init__(self, tokens: Set[Token]):
-        self._tokens = tokens
+    def __init__(self, reserved_words: Set[str]):
+        self._tokens = {Token(lexema=word, classe=word) for word in reserved_words}
 
     def find(lexeme: str):
         for token in _self.tokens:
