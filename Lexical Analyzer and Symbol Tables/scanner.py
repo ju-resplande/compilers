@@ -25,7 +25,7 @@ class Scanner:
         char = 'start'
 
         while self._pos.update():
-            char = file.read(1) if char else '$'
+            char = file.read(1) if char != '' else '$'
 
             state = self._afd.run(char, state)
             token_class = CLASS_MAPPING.get(state)
