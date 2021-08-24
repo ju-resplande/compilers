@@ -17,6 +17,9 @@ class Token:
             self.tipo = 'id'
         else:
             self.tipo = 'NULO'
+    
+    def __repr__(self):
+        return f"Classe: {self.classe}, Lexema: {self.lexema}, Tipo: {self.tipo}"
 
 
 CLASS_MAPPING: Dict[int, str] = {

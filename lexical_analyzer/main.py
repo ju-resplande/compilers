@@ -15,7 +15,7 @@ def main():
    
    error_num = 0
    with open('sample.mgol') as f:            
-        token = scanner.scanner(f)
+        token = scanner.scan(f)
             
         if token.token_class.startswith('ERRO'):
             error(error_num, cur_pos)
