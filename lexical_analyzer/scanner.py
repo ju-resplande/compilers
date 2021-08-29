@@ -3,7 +3,7 @@ from position import Position
 from afd import AFD
 from token_ import (
     RESERVED_WORDS,
-    CLASS_MAPPING,
+    TOKEN_MAPPING,
     INITIAL_STATE,
     Token,
 )
@@ -48,7 +48,7 @@ class Scanner:
             # print("prev_token_class", prev_token_class)
 
             state = self._afd.run(char, state)
-            token_class = CLASS_MAPPING.get(state)
+            token_class = TOKEN_MAPPING.get(state)
 
             # print(self._pos.get_values(), repr(char), state, token_class)
             # print(self._found_token(prev_token_class, lexeme, char, state))

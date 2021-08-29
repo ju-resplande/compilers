@@ -22,9 +22,6 @@ class Token:
         return f"Classe: {self.classe}, Lexema: {self.lexema}, Tipo: {self.tipo}"
 
 
-INITIAL_STATE = 0
-ERROR_STATE = 23
-
 CLASS_MAPPING: Dict[int, str] = {
     1: "OPR",
     2: "RCB",
@@ -42,7 +39,12 @@ CLASS_MAPPING: Dict[int, str] = {
     20: "PT_V",
     21: "Vir",
     22: "EOF",
-    ERROR_STATE: "ERRO",
+    23: "ERRO1",
+    24: "ERRO2",
+    25: "ERRO3",
+    24: "ERRO4",
+    25: "ERRO5",
+    26: "ERRO6",
 }
 
 RESERVED_WORDS: Set[str] = {

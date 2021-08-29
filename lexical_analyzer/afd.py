@@ -1,5 +1,6 @@
 import string
-from token_ import ERROR_STATE, CLASS_MAPPING, INITIAL_STATE
+from token_ import TOKEN_MAPPING
+from error import error_state
 
 
 class AFD:
@@ -13,23 +14,21 @@ class AFD:
         elif char in self._alphabet:
             return char
         else:
-            return "ERRO"
+            return "-1"  # ERRO1
 
     def run(self, char: str, state: int):
         char_input = self._set_input(char)
 
-        if char_input == "ERRO":
-            return ERROR_STATE
-        elif char in {"e", "E"} and state in {6, 7}:
+        if char in {"e", "E"} and state in {6, 7}:
             return self._transitions[state][char]
-        elif state in CLASS_MAPPING and (
+        elif state in TOKEN_MAPPING and (
             not state in self._transitions or not char_input in self._transitions[state]
         ):
-            return INITIAL_STATE
+            return 0
         elif char_input in self._transitions[state]:
             return self._transitions[state][char_input]
         else:
-            return ERROR_STATE
+            return error_state(char, state)
 
     _alphabet = {
         "D",
