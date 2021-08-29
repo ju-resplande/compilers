@@ -1,5 +1,3 @@
-from typing import List
-
 from scanner import Scanner
 from token_ import Token
 
@@ -15,14 +13,18 @@ def main():
     scanner = Scanner()
 
     error_num = 0
-    with open("sample.mgol") as f:
-        token = scanner.scan(f)
+    with open("example.mgol") as f:
+        while True:
+            token = scanner.scanner(f)
 
-        if token.token_class.startswith("ERRO"):
-            error(error_num, scanner, token)
-            error_num = error_num + 1
+            # if token.classe.startswith("ERRO"):
+            #    error(error_num, scanner, token)
+            #    error_num = error_num + 1
 
-        print(token)
+            print(token)
+
+            if token.classe == "EOF":
+                return
 
 
 if __name__ == "__main__":

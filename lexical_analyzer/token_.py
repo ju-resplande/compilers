@@ -22,6 +22,7 @@ class Token:
         return f"Classe: {self.classe}, Lexema: {self.lexema}, Tipo: {self.tipo}"
 
 
+INITIAL_STATE = 0
 ERROR_STATE = 23
 
 CLASS_MAPPING: Dict[int, str] = {

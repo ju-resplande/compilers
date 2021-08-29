@@ -10,9 +10,9 @@ class Position:
         return pos
 
     def update(self, char: str):
-        if char == "start":
-            return
+        if char != "start":
+            self.col = self.col + 1 if char != "\n" else 0
+            self.line = self.line if char != "\n" else self.line + 1
 
-        self.col = self.col + 1 if char != "\n" else 0
-        self.line = self.line if char != "\n" else self.line + 1
+        return True  # make loop not end
 

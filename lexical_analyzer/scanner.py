@@ -4,14 +4,14 @@ from afd import AFD
 from token_ import (
     RESERVED_WORDS,
     CLASS_MAPPING,
-    ERROR_STATE,
+    INITIAL_STATE,
     Token,
 )
 
 
 class Scanner:
     def __init__(self):
-        self._afd = AFD
+        self._afd = AFD()
         self._symb_table = SymbolTable(reserved_words=RESERVED_WORDS)
         self._pos = Position()
 
@@ -21,11 +21,16 @@ class Scanner:
     def _is_reserved_word(self, lexeme):
         return lexeme in RESERVED_WORDS
 
-    def _found_token(self, prev_token_class, lexeme, char, state) -> bool:
-        is_normal_token = prev_token_class != None and state == ERROR_STATE
-        is_space = char in [" ", "\n", "\t"]
+    def _is_space(self, char):
+        return char in [" ", "\n", "\t"]
 
-        return self._is_reserved_word(lexeme) or is_normal_token or is_space
+    def _found_token(self, prev_token_class, lexeme, char, state) -> bool:
+        if lexeme == "":
+            return False
+
+        is_normal_token = prev_token_class != None and state == INITIAL_STATE
+
+        return self._is_reserved_word(lexeme) or is_normal_token or self._is_space(char)
 
     def scanner(self, file) -> Token:
         char = "start"
@@ -34,15 +39,21 @@ class Scanner:
         token_class = None
 
         while self._pos.update(char):
-            char = file.read(1) if char != "" else "$"
+            char = file.read(1)
+            char = char if char != "" else "$"
 
             prev_state = state
             prev_token_class = token_class
+            # print("prev_state", prev_state)
+            # print("prev_token_class", prev_token_class)
 
             state = self._afd.run(char, state)
             token_class = CLASS_MAPPING.get(state)
 
-            if self._found_token(self, prev_token_class, state, lexeme):
+            # print(self._pos.get_values(), repr(char), state, token_class)
+            # print(self._found_token(prev_token_class, lexeme, char, state))
+
+            if self._found_token(prev_token_class, lexeme, char, state):
                 if not self._is_reserved_word(lexeme):  # found in previous position
                     state = prev_state
                     token_class = prev_token_class
@@ -56,5 +67,7 @@ class Scanner:
 
                     if token_class == ["id"]:
                         self._symb_table.insert(token)
-            else:
+
+                return token
+            elif not self._is_space(char):
                 lexeme = lexeme + char
