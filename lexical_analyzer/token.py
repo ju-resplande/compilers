@@ -22,22 +22,26 @@ class Token:
         return f"Classe: {self.classe}, Lexema: {self.lexema}, Tipo: {self.tipo}"
 
 
+ERROR_STATE = 23
+
 CLASS_MAPPING: Dict[int, str] = {
+    1: "OPR",
     2: "RCB",
     3: "OPR",
+    4: "OPR",
     5: "id",
     6: "NUM",
     7: "NUM",
-    10: "Num",
+    10: "NUM",
     12: "comentário",
     14: "lit",
-    16: "OPM",
-    17: "AB_P",
-    18: "FC_P",
-    19: "PT_V",
-    20: "Vir",
-    21: "EOF",
-    22: "ERRO",
+    17: "OPM",
+    18: "AB_P",
+    19: "FC_P",
+    20: "PT_V",
+    21: "Vir",
+    22: "EOF",
+    ERROR_STATE: "ERRO",
 }
 
 RESERVED_WORDS: Set[str] = {
