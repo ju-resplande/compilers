@@ -1,6 +1,6 @@
 from typing import Set
 
-from token import Token
+from token_ import Token
 
 
 class SymbolTable:

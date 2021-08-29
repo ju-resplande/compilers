@@ -1,7 +1,7 @@
 from symbol_table import SymbolTable
 from position import Position
 from afd import AFD
-from token import (
+from token_ import (
     RESERVED_WORDS,
     CLASS_MAPPING,
     Token,

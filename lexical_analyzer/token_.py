@@ -10,7 +10,7 @@ class Token:
 
     def __post_init__(self):
         if self.classe == "NUM":
-            self.tipo = "real" if "." in lexema else "inteiro"
+            self.tipo = "real" if "." in self.lexema else "inteiro"
         elif self.classe == "lit":
             self.tipo = "lit"
         elif self.classe == "id":

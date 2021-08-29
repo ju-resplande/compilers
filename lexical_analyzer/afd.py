@@ -1,5 +1,5 @@
 import string
-from token import ERROR_STATE
+from token_ import ERROR_STATE
 
 
 class AFD:
