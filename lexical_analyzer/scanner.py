@@ -43,10 +43,10 @@ class Scanner:
             token_class = CLASS_MAPPING.get(state)
 
             if self._found_token(self, prev_token_class, state, lexeme):
-                if self._is_reserved_word(lexeme):  # not found in current cursor
-                    file.seek(-1, 1)  # goes back one word
+                if not self._is_reserved_word(lexeme):  # found in previous position
                     state = prev_state
                     token_class = prev_token_class
+                    file.seek(file.tell() - 1, 0)  # goes back one letter
 
                 if token_class == ["id"]:
                     token = self._symb_table.find(lexeme)
