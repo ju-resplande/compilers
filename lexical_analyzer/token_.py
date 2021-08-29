@@ -2,11 +2,11 @@ from dataclasses import dataclass, field
 from typing import Set, Dict
 
 
-@dataclass
+@dataclass(unsafe_hash=True)
 class Token:
-    lexema: str
-    classe: str = field(init=False)
-    tipo: str
+    lexema: str = field(hash=True)
+    classe: str
+    tipo: str = field(init=False)
 
     def __post_init__(self):
         if self.classe == "NUM":

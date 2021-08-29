@@ -20,5 +20,5 @@ class SymbolTable:
         self._tokens.add(token)
 
     def update(self):
-        pass  # TODO: implementar
+        raise NotImplementedError()
 
