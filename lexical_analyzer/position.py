@@ -1,16 +1,18 @@
-from typing import List
+from typing import Tuple
+
 
 class Position:
     col = 0
     line = 0
 
-    def get_values(self) -> List[int]:
-        pos = [self.line, self.col]
+    def get_values(self) -> Tuple[int]:
+        pos = (self.line, self.col)
         return pos
 
     def update(self, char: str):
-        if char == 'start':
+        if char == "start":
             return
 
-        self.col = self.col + 1 if char != '\n' else 0
-        self.line = self.line if char != '\n' else self.line + 1
+        self.col = self.col + 1 if char != "\n" else 0
+        self.line = self.line if char != "\n" else self.line + 1
+
