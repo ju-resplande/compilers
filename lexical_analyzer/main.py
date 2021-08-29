@@ -1,7 +1,7 @@
 from typing import List
 
 from scanner import Scanner
-from _token import Token
+from token_ import Token
 
 
 def error(error_num: int, scanner: Scanner, token: Token):
