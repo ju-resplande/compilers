@@ -5,7 +5,10 @@ from error import error_state
 
 class AFD:
     def _set_input(self, char: str) -> str:
-        if char in string.digits:
+
+        if char == "":
+            return ""
+        elif char in string.digits:
             return "D"
         elif char in string.ascii_letters:
             return "L"
@@ -19,13 +22,14 @@ class AFD:
     def run(self, char: str, state: int):
         char_input = self._set_input(char)
 
-        if char in {"e", "E"} and state in {6, 7}:
+        if char in {"e", "E"} and state in {6, 8}:
             return self._transitions[state][char]
         elif state in TOKEN_MAPPING and (
             not state in self._transitions or not char_input in self._transitions[state]
         ):
             return 0
         elif char_input in self._transitions[state]:
+            # print(char, char_input, self._transitions[state][char_input])
             return self._transitions[state][char_input]
         else:
             return error_state(char_input, state)
@@ -69,15 +73,15 @@ class AFD:
             "{": 12,
             '"': 14,
             "'": 16,
-            "+": 18,
-            "-": 18,
-            "*": 18,
-            "/": 18,
-            "(": 19,
-            ")": 20,
-            ";": 21,
-            ",": 22,
-            "$": 23,
+            "+": 19,
+            "-": 19,
+            "*": 19,
+            "/": 19,
+            "(": 20,
+            ")": 21,
+            ";": 22,
+            ",": 23,
+            "$": 24,
         },
         1: {"-": 2, "=": 3,},
         4: {"=": 3,},
@@ -140,7 +144,7 @@ class AFD:
             "\n": 14,
         },
         16: {
-            "'": 17,
+            "'": 18,
             '"': 17,
             "}": 17,
             "{": 17,
@@ -159,11 +163,11 @@ class AFD:
             ")": 17,
             "(": 17,
             ";": 17,
-            "'": 17,
             ",": 17,
             " ": 17,
             "\t": 17,
             "\n": 17,
         },
-        17: {"'": 18},
+        17: {"'": 15},
+        18: {"'": 15},
     }

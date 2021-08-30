@@ -3,6 +3,7 @@ from typing import TextIO
 
 from symbol_table import SymbolTable
 from position import Position
+from error import error_state
 from afd import AFD
 from token_ import (
     RESERVED_WORDS,
@@ -22,18 +23,18 @@ class Scanner:
 
     def scanner(self, file: TextIO) -> Token:
         char = "start"
-        lexeme = ""
         state = 0
+        lexeme = ""
+        token = None
         token_class = None
 
-        while self._pos.update(char):
+        while self._pos.update(char, lexeme):
             char = file.read(1)
+            print(self.get_positions(), repr(char))
 
             state = self._afd.run(char, state)
             prev_token_class = token_class
             token_class = TOKEN_MAPPING.get(state)
-
-            # print(self._pos.get_values(), repr(char), state, token_class)
 
             if prev_token_class != None and state == 0:
                 token_class = prev_token_class
@@ -44,10 +45,10 @@ class Scanner:
                 elif token_class == ["id"]:
                     token = self._symb_table.find(lexeme)
 
-                if not (token_class == ["id"] and token != None):
+                if not (token_class == "id" and token != None):
                     token = Token(lexema=lexeme, classe=token_class)
 
-                    if token_class == ["id"]:
+                    if token_class == "id":
                         self._symb_table.insert(token)
 
                 return token
