@@ -12,20 +12,20 @@ ERROR_MAPPING: Dict[str, str] = {
 }
 
 
-def error_state(char: str, state: str) -> str:
-    if char == "-1":
-        return "ERRO1"
+def error_state(char_input: str, state: str) -> int:
+    if char_input == "Invalid caracter":
+        return 24
     elif state == 7:
-        return "ERRO2"
+        return 25
     elif state == 9:
-        return "ERRO3"
+        return 26
     elif state == 10:
-        return "ERRO4"
+        return 27
     elif state == 12:
-        return "ERRO5"
-    elif state in 15 and char == "'":
-        return "ERRO6"
+        return 28
+    elif state in 15 and char_input == "'":
+        return 29
     elif state == [14, 16]:
-        return "ERRO7"
+        return 30
     else:
-        return "ERRO8"
+        return 31

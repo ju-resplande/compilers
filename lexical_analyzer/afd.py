@@ -14,7 +14,7 @@ class AFD:
         elif char in self._alphabet:
             return char
         else:
-            return "-1"  # ERRO1
+            return "Invalid caracter"  # ERRO1
 
     def run(self, char: str, state: int):
         char_input = self._set_input(char)
@@ -28,7 +28,7 @@ class AFD:
         elif char_input in self._transitions[state]:
             return self._transitions[state][char_input]
         else:
-            return error_state(char, state)
+            return error_state(char_input, state)
 
     _alphabet = {
         "D",
