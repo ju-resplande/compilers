@@ -1,11 +1,18 @@
+import sys
+
 from error import ERROR_MAPPING
 from scanner import Scanner
 
 
 def main():
+    if len(sys.argv) < 1:
+        raise ValueError("Usage: python main.py example.mgol")
+    else:
+        filename = sys.argv[1]
+
     scanner = Scanner()
 
-    with open("example.mgol") as f:
+    with open(filename) as f:
         while True:
             token = scanner.scanner(f)
 
@@ -18,7 +25,7 @@ def main():
             print(token)
 
             if token.classe == "EOF":
-                return
+                break
 
 
 if __name__ == "__main__":

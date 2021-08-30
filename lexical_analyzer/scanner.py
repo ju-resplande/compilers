@@ -1,10 +1,12 @@
+from typing import TextIO
+
+
 from symbol_table import SymbolTable
 from position import Position
 from afd import AFD
 from token_ import (
     RESERVED_WORDS,
     TOKEN_MAPPING,
-    INITIAL_STATE,
     Token,
 )
 
@@ -18,21 +20,7 @@ class Scanner:
     def get_positions(self) -> tuple:
         return self._pos.get_values()
 
-    def _is_reserved_word(self, lexeme):
-        return lexeme in RESERVED_WORDS
-
-    def _is_space(self, char):
-        return char in [" ", "\n", "\t"]
-
-    def _found_token(self, prev_token_class, lexeme, char, state) -> bool:
-        if lexeme == "":
-            return False
-
-        is_normal_token = prev_token_class != None and state == INITIAL_STATE
-
-        return self._is_reserved_word(lexeme) or is_normal_token or self._is_space(char)
-
-    def scanner(self, file) -> Token:
+    def scanner(self, file: TextIO) -> Token:
         char = "start"
         lexeme = ""
         state = 0
@@ -40,26 +28,20 @@ class Scanner:
 
         while self._pos.update(char):
             char = file.read(1)
-            char = char if char != "" else "$"
-
-            prev_state = state
-            prev_token_class = token_class
-            # print("prev_state", prev_state)
-            # print("prev_token_class", prev_token_class)
 
             state = self._afd.run(char, state)
+            prev_token_class = token_class
             token_class = TOKEN_MAPPING.get(state)
 
             # print(self._pos.get_values(), repr(char), state, token_class)
-            # print(self._found_token(prev_token_class, lexeme, char, state))
 
-            if self._found_token(prev_token_class, lexeme, char, state):
-                if not self._is_reserved_word(lexeme):  # found in previous position
-                    state = prev_state
-                    token_class = prev_token_class
-                    file.seek(file.tell() - 1, 0)  # goes back one letter
+            if prev_token_class != None and state == 0:
+                token_class = prev_token_class
+                file.seek(file.tell() - 1, 0)  # goes back one letter
 
-                if token_class == ["id"]:
+                if lexeme in RESERVED_WORDS:
+                    token_class = lexeme
+                elif token_class == ["id"]:
                     token = self._symb_table.find(lexeme)
 
                 if not (token_class == ["id"] and token != None):
@@ -69,5 +51,7 @@ class Scanner:
                         self._symb_table.insert(token)
 
                 return token
-            elif not self._is_space(char):
+            elif not char in [" ", "\n", "\t"]:
                 lexeme = lexeme + char
+
+        return Token("$", "EOF")
