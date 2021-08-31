@@ -30,7 +30,7 @@ class Scanner:
 
         while self._pos.update(char, lexeme):
             char = file.read(1)
-            print(self.get_positions(), repr(char))
+            # print(self.get_positions(), repr(char))
 
             state = self._afd.run(char, state)
             prev_token_class = token_class
