@@ -22,7 +22,8 @@ def main():
                     f"{token.classe} - {ERROR_MAPPING[token.classe]}, linha {cur_pos[0]}, coluna {cur_pos[1]}"
                 )
 
-            print(token)
+            if token.classe != "comentário":
+                print(token)
 
             if token.classe == "EOF":
                 break

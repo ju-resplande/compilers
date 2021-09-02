@@ -12,9 +12,11 @@ class Token:
         if self.classe == "NUM":
             self.tipo = "real" if "." in self.lexema else "inteiro"
         elif self.classe == "lit":
-            self.tipo = "lit"
+            self.tipo = "literal"
         elif self.classe == "id":
             self.tipo = "id"
+        elif self.classe in ["inteiro", "literal", "real"]:
+            self.tipo = self.classe
         else:
             self.tipo = "NULO"
 
