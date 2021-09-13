@@ -14,7 +14,7 @@ def main():
 
     with open(filename) as f:
         while True:
-            token = scanner.scanner(f)
+            token = scanner.scan(f)
 
             if token.classe.startswith("ERRO"):
                 cur_pos = scanner.get_positions()

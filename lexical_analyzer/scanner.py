@@ -21,7 +21,7 @@ class Scanner:
     def get_positions(self) -> tuple:
         return self._pos.get_values()
 
-    def scanner(self, file: TextIO) -> Token:
+    def scan(self, file: TextIO) -> Token:
         char = "start"
         state = 0
         lexeme = ""
