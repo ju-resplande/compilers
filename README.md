@@ -12,5 +12,5 @@ python >= 3.7
 
 ## Tasks
 
-### 1. Lexical Analyzer and symbol table (T1)
-### 2.
+1. [Lexical Analyzer and symbol table (T1)](lexical_analyzer)
+2.
