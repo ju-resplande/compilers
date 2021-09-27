@@ -1,12 +1,12 @@
 import sys
 
-from error import ERROR_MAPPING
-from scanner import Scanner
+from mgol.lexical.error import ERROR_MAPPING
+from mgol.lexical.scanner import Scanner
 
 
 def main():
     if len(sys.argv) < 1:
-        raise ValueError("Usage: python main.py example.mgol")
+        raise ValueError("Usage: python main.py example1.mgol")
     else:
         filename = sys.argv[1]
 

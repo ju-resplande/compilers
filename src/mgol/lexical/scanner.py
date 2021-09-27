@@ -1,11 +1,10 @@
 from typing import TextIO
 
 
-from symbol_table import SymbolTable
-from position import Position
-from error import error_state
-from afd import AFD
-from token_ import (
+from mgol.lexical.symbol_table import SymbolTable
+from mgol.lexical.position import Position
+from mgol.lexical.afd import AFD
+from mgol.lexical.token_ import (
     RESERVED_WORDS,
     TOKEN_MAPPING,
     Token,

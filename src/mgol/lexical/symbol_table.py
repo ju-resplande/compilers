@@ -1,6 +1,6 @@
 from typing import Set
 
-from token_ import Token
+from mgol.lexical.token_ import Token
 
 
 class SymbolTable:

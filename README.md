@@ -12,5 +12,6 @@ python >= 3.7
 
 ## Tasks
 
-1. [Lexical Analyzer and symbol table (T1)](lexical_analyzer)
-2.
+1. [Lexical Analyzer and Symbol Table (T1)](src/mgol/lexical)
+2.  [Syntactic Analyzer and Error Recovery (T2)](src/mgol/syntactic)
+

@@ -1,6 +1,6 @@
 import string
-from token_ import TOKEN_MAPPING
-from error import error_state
+from mgol.lexical.token_ import TOKEN_MAPPING
+from mgol.lexical.error import error_state
 
 
 class AFD:
