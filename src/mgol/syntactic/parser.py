@@ -25,13 +25,18 @@ class Parser:
 
         while True:
             state = self.stack.pop()
-            action, number = self.action[state][token.lemma]
+            action_number = self.action[state][token.lemma]
 
+            if pd.isnull(action_number):
+                self.stack, self.scanner = self.recovery.recover(file, self.scanner)
+                # imprimir onde ocorreu o erro e o tipo
+
+            action, number = action_number
             if action == "s":
                 self.stack.append(number)
                 token = self.scanner.scan(file)
             elif action == "r":
-                grammar_rule = self.grammar[number]  # enumerar regras a partir do 0
+                grammar_rule = self.grammar[number - 1]
 
                 for _ in grammar_rule[1:]:
                     state = self.stack.pop()
@@ -43,6 +48,3 @@ class Parser:
                 print(grammar_rule)
             elif action == "a":
                 break
-            else:
-                self.stack, self.scanner = self.recovery.recover(file, self.scanner)
-                # imprimir onde ocorreu o erro e o tipo
