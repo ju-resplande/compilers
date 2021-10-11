@@ -30,41 +30,49 @@ class Parser:
         token = self.scanner.scan(file)
         token_class = token.classe.lower()  # srl table uses only lowercase
 
-        print(f"Lendo: {token_class}, {token.lexema}")
+        print(
+            f"token class: -{token_class}- token lexema: -{token.lexema}- token tipo: -{token.tipo}-"
+        )
 
-        return token_class
+        return token_class, token  # for debug reasons
 
     def print_grammar_rule(self, grammar_rule: List[str]):
         grammar_rule = grammar_rule[0] + " -> " + " ".join(grammar_rule[1:])
         print(grammar_rule)
 
     def parse(self, file: TextIO):
-        token_class = self.get_next_symbol(file)
+        token_class, token = self.get_next_symbol(file)
 
         while True:
             state = self.stack[-1]
 
-            print("-" * 30)
+            print("\n")
+            print(self.stack)
+            print(f"Current State: {state}")
 
             action_number = self.action[token_class][state]  # pandas column-oriented
             action, number = action_number[0], int(action_number[1:])
 
-            print(f"action: {action, number}")
-            print(f"stack: {self.stack}")
+            print(f'action: {"reduce" if action == "r" else "shift"}')
+            print(f"nextState: {number}")
+            print(
+                f"token class: -{token.classe}- token lexema: -{token.lexema}- token tipo: -{token.tipo}-"
+            )
 
             if action == "s":
                 self.stack.append(number)
-                token_class = self.get_next_symbol(file)
+                token_class, token = self.get_next_symbol(file)
 
             elif action == "r":
                 grammar_rule = self.grammar[number - 1]
+
+                print(f"Rule: {number-1}")
 
                 for _ in grammar_rule[1:]:
                     state = self.stack.pop()
 
                 non_terminal = grammar_rule[0]
                 state = self.stack[-1]
-                print(non_terminal, state)
 
                 state = int(self.goto[non_terminal][state])  # pandas column-oriented
                 self.stack.append(state)
