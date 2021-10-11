@@ -6,7 +6,7 @@ from mgol.lexical.scanner import Scanner
 
 def main():
     if len(sys.argv) < 1:
-        raise ValueError("Usage: python main.py example1.mgol")
+        raise ValueError("Usage: python scanner.py example1.mgol")
     else:
         filename = sys.argv[1]
 

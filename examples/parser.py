@@ -5,11 +5,12 @@ from mgol.syntactic.parser import Parser
 
 def main():
     if len(sys.argv) < 1:
-        raise ValueError("Usage: python main.py example1.mgol")
+        raise ValueError("Usage: python parser.py example1.mgol [--debug]")
     else:
         filename = sys.argv[1]
 
-    parser = Parser()
+    to_debug = "--debug" in sys.argv
+    parser = Parser(debug=to_debug)
 
     with open(filename) as f:
         parser.parse(f)

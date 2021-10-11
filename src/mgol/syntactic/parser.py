@@ -11,9 +11,10 @@ from mgol.syntactic.recovery import PanicRecovery
 
 
 class Parser:
-    def __init__(self):
+    def __init__(self, debug=False):
         self.stack = [0]
         self.scanner = Scanner()
+        self.debug = debug
 
         srl_dir = os.path.join(os.path.dirname(__file__), "srl_table")
 
@@ -36,6 +37,7 @@ class Parser:
 
     def print_grammar_rule(self, grammar_rule: List[str]):
         grammar_rule = grammar_rule[0] + " -> " + " ".join(grammar_rule[1:])
+
         print(grammar_rule)
 
     def parse(self, file: TextIO):
@@ -44,9 +46,10 @@ class Parser:
         while True:
             state = self.stack[-1]
 
-            print("\n")
-            print(self.stack)
-            print(f"Current State: {state}")
+            if self.debug:
+                print("\n")
+                print(self.stack)
+                print(f"Current State: {state}")
 
             action_number = self.action[token_class][state]  # pandas column-oriented
 
@@ -57,11 +60,12 @@ class Parser:
             else:
                 action, number = action_number[0], int(action_number[1:])
 
-                print(f'action: {"reduce" if action == "r" else "shift"}')
-                print(f"nextState: {number}")
-                print(
-                    f"token class: -{token.classe}- token lexema: -{token.lexema}- token tipo: -{token.tipo}-"
-                )
+                if self.debug:
+                    print(f'action: {"reduce" if action == "r" else "shift"}')
+                    print(f"nextState: {number}")
+                    print(
+                        f"token class: -{token.classe}- token lexema: -{token.lexema}- token tipo: -{token.tipo}-"
+                    )
 
                 if action == "s":
                     self.stack.append(number)
@@ -70,17 +74,20 @@ class Parser:
                 elif action == "r":
                     grammar_rule = self.grammar[number - 1]
 
-                    print(f"Rule: {number}")
+                    if self.debug:
+                        print(f"Rule: {number}")
 
                     for _ in grammar_rule[1:]:
                         state = self.stack.pop()
 
-                    print(self.stack)
+                    if self.debug:
+                        print(self.stack)
 
                     non_terminal = grammar_rule[0]
                     state = self.stack[-1]
 
-                    print(non_terminal)
+                    if self.debug:
+                        print(non_terminal)
 
                     state = int(self.goto[non_terminal][state])
                     # pandas column-oriented
