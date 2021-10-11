@@ -28,11 +28,9 @@ class Parser:
 
     def get_next_symbol(self, file: TextIO) -> str:
         token = self.scanner.scan(file)
-        token_class = token.classe.lower()  # srl table uses only lowercase
 
-        print(
-            f"token class: -{token_class}- token lexema: -{token.lexema}- token tipo: -{token.tipo}-"
-        )
+        token_class = token.classe.lower()  # srl table uses only lowercase
+        token_class = "$" if token_class == "eof" else token_class  # srl table uses $
 
         return token_class, token  # for debug reasons
 
@@ -51,37 +49,44 @@ class Parser:
             print(f"Current State: {state}")
 
             action_number = self.action[token_class][state]  # pandas column-oriented
-            action, number = action_number[0], int(action_number[1:])
 
-            print(f'action: {"reduce" if action == "r" else "shift"}')
-            print(f"nextState: {number}")
-            print(
-                f"token class: -{token.classe}- token lexema: -{token.lexema}- token tipo: -{token.tipo}-"
-            )
-
-            if action == "s":
-                self.stack.append(number)
-                token_class, token = self.get_next_symbol(file)
-
-            elif action == "r":
-                grammar_rule = self.grammar[number - 1]
-
-                print(f"Rule: {number-1}")
-
-                for _ in grammar_rule[1:]:
-                    state = self.stack.pop()
-
-                non_terminal = grammar_rule[0]
-                state = self.stack[-1]
-
-                state = int(self.goto[non_terminal][state])  # pandas column-oriented
-                self.stack.append(state)
-
-                self.print_grammar_rule(grammar_rule)
-
-            elif action == "a":
-                break
-            elif action == "e":
+            if pd.isna(action_number):
                 # imprimir onde ocorreu o erro e o tipo
                 # erro pilha vazia? erro do scanner?
                 self.stack, self.scanner = self.recovery.recover(file, self.scanner)
+            else:
+                action, number = action_number[0], int(action_number[1:])
+
+                print(f'action: {"reduce" if action == "r" else "shift"}')
+                print(f"nextState: {number}")
+                print(
+                    f"token class: -{token.classe}- token lexema: -{token.lexema}- token tipo: -{token.tipo}-"
+                )
+
+                if action == "s":
+                    self.stack.append(number)
+                    token_class, token = self.get_next_symbol(file)
+
+                elif action == "r":
+                    grammar_rule = self.grammar[number - 1]
+
+                    print(f"Rule: {number}")
+
+                    for _ in grammar_rule[1:]:
+                        state = self.stack.pop()
+
+                    print(self.stack)
+
+                    non_terminal = grammar_rule[0]
+                    state = self.stack[-1]
+
+                    print(non_terminal)
+
+                    state = int(self.goto[non_terminal][state])
+                    # pandas column-oriented
+                    self.stack.append(state)
+
+                    self.print_grammar_rule(grammar_rule)
+
+                elif action == "a":
+                    break
