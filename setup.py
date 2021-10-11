@@ -19,6 +19,7 @@ setup(
     ],
     keywords="mgol, compilers, educational software",  # Optional
     package_dir={"": "src"},  # Optional
+    install_requires=["pandas",],
     packages=find_packages(where="src"),  # Required
     python_requires=">=3.7",
 )
