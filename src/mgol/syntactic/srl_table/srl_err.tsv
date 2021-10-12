@@ -1,0 +1,77 @@
+inicio	varinicio	varfim	pt_v	id	vir	inteiro	real	literal	leia	escreva	lit	num	rcb	opm	se	ab_p	fc_p	entao	opr	fimse	repita	fimrepita	fim	$	P’	P	V	LV	D	L	TIPO	A	ES	ARG	CMD	LD	OPRD	COND	CAB	EXP_R	CP	R	CP_R
+s2	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1	e1		1.0																	
+e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	e2	a0																			
+e3	s3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3	e3			4.0																
+e4	e4	s10	e4	e4	e4	s5	s6	s7	e4	e4	e4	e4	e4	e4	e4	e4	e4	e4	e4	e4	e4	e4	e4	e4				8.0	12.0		9.0												
+e5	e5	e5	e5	s30	e5	e5	e5	e5	s21	s24	e5	e5	e5	e5	s64	e5	e5	e5	e5	e5	s39	e5	s20	e5								19.0	54.0		69.0			70.0	55.0			71.0	
+e6	e6	e6	e6	r9	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6	e6																			
+e7	e7	e7	e7	r10	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7	e7																			
+e8	e8	e8	e8	r11	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8	e8																			
+e9	e9	e9	e9	r3	e9	e9	e9	e9	r3	r3	e9	e9	e9	e9	r3	e9	e9	e9	e9	e9	r3	e9	r3	e9																			
+e10	e10	e10	e10	s13	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10	e10						16.0													
+e11	e11	e11	s11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11	e11																			
+e12	e12	e12	e12	r5	e12	e12	e12	e12	r5	r5	e12	e12	e12	e12	r5	e12	e12	e12	e12	e12	r5	e12	r5	e12																			
+e13	e13	s10	e13	e13	e13	s5	s6	s7	e13	e13	e13	e13	e13	e13	e13	e13	e13	e13	e13	e13	e13	e13	e13	e13				18.0	12.0		9.0												
+e14	e14	e14	r8	e14	s14	e14	e14	e14	e14	e14	e14	e14	e14	e14	e14	e14	e14	e14	e14	e14	e14	e14	e14	e14																			
+e15	e15	e15	e15	s13	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15	e15						15.0													
+e16	e16	e16	r7	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16	e16																			
+e17	e17	e17	s17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17	e17																			
+e18	e18	r6	e18	e18	e18	r6	r6	r6	e18	e18	e18	e18	e18	e18	e18	e18	e18	e18	e18	e18	e18	e18	e18	e18																			
+e19	e19	e19	e19	r4	e19	e19	e19	e19	r4	r4	e19	e19	e19	e19	r4	e19	e19	e19	e19	e19	r4	e19	r4	e19																			
+e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	e20	r2																			
+e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	e21	r38																			
+e22	e22	e22	e22	s22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22	e22																			
+e23	e23	e23	s23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23	e23																			
+e24	e24	e24	e24	r13	e24	e24	e24	e24	r13	r13	e24	e24	e24	e24	r13	e24	e24	e24	e24	r13	r13	r13	r13	e24																			
+e25	e25	e25	e25	s27	e25	e25	e25	e25	e25	e25	s25	s26	e25	e25	e25	e25	e25	e25	e25	e25	e25	e25	e25	e25										28.0									
+e26	e26	e26	r15	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26	e26																			
+e27	e27	e27	r16	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27	e27																			
+e28	e28	e28	r17	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28	e28																			
+e29	e29	e29	s29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29	e29																			
+e30	e30	e30	e30	r14	e30	e30	e30	e30	r14	r14	e30	e30	e30	e30	r14	e30	e30	e30	e30	r14	r14	r14	r14	e30																			
+e31	e31	e31	e31	e31	e31	e31	e31	e31	e31	e31	e31	e31	s31	e31	e31	e31	e31	e31	e31	e31	e31	e31	e31	e31																			
+e32	e32	e32	e32	s35	e32	e32	e32	e32	e32	e32	e32	s34	e32	e32	e32	e32	e32	e32	e32	e32	e32	e32	e32	e32												32.0	36.0						
+e33	e33	e33	s33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33	e33																			
+e34	e34	e34	e34	r19	e34	e34	e34	e34	r19	r19	e34	e34	e34	e34	r19	e34	e34	e34	e34	r19	r19	r19	r19	e34																			
+e35	e35	e35	r23	e35	e35	e35	e35	e35	e35	e35	e35	e35	e35	r23	e35	e35	r23	e35	r23	e35	e35	e35	e35	e35																			
+e36	e36	e36	r22	e36	e36	e36	e36	e36	e36	e36	e36	e36	e36	r22	e36	e36	r22	e36	r22	e36	e36	e36	e36	e36																			
+e37	e37	e37	r21	e37	e37	e37	e37	e37	e37	e37	e37	e37	e37	s37	e37	e37	e37	e37	e37	e37	e37	e37	e37	e37																			
+e38	e38	e38	e38	s35	e38	e38	e38	e38	e38	e38	e38	s34	e38	e38	e38	e38	e38	e38	e38	e38	e38	e38	e38	e38													38.0						
+e39	e39	e39	r20	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39	e39																			
+e40	e40	e40	e40	e40	e40	e40	e40	e40	e40	e40	e40	e40	e40	e40	e40	s40	e40	e40	e40	e40	e40	e40	e40	e40																			
+e41	e41	e41	e41	s35	e41	e41	e41	e41	e41	e41	e41	s34	e41	e41	e41	e41	e41	e41	e41	e41	e41	e41	e41	e41													43.0			41.0			
+e42	e42	e42	e42	e42	e42	e42	e42	e42	e42	e42	e42	e42	e42	e42	e42	e42	s42	e42	e42	e42	e42	e42	e42	e42																			
+e43	e43	e43	e43	s30	e43	e43	e43	e43	s21	s24	e43	e43	e43	e43	s64	e43	e43	e43	e43	e43	e43	s51	e43	e43									47.0		49.0			52.0	55.0				46.0
+e44	e44	e44	e44	e44	e44	e44	e44	e44	e44	e44	e44	e44	e44	e44	e44	e44	e44	e44	s44	e44	e44	e44	e44	e44																			
+e45	e45	e45	e45	s35	e45	e45	e45	e45	e45	e45	e45	s34	e45	e45	e45	e45	e45	e45	e45	e45	e45	e45	e45	e45													45.0						
+e46	e46	e46	e46	e46	e46	e46	e46	e46	e46	e46	e46	e46	e46	e46	e46	e46	r27	e46	e46	e46	e46	e46	e46	e46																			
+e47	e47	e47	e47	r33	e47	e47	e47	e47	r33	r33	e47	e47	e47	e47	r33	e47	e47	e47	e47	e47	r33	e47	r33	e47																			
+e48	e48	e48	e48	s30	e48	e48	e48	e48	s21	s24	e48	e48	e48	e48	s64	e48	e48	e48	e48	e48	e48	s51	e48	e48									47.0		49.0			52.0	55.0				48.0
+e49	e49	e49	e49	r34	e49	e49	e49	e49	r34	r34	e49	e49	e49	e49	r34	e49	e49	e49	e49	e49	r34	e49	r34	e49																			
+e50	e50	e50	e50	s30	e50	e50	e50	e50	s21	s24	e50	e50	e50	e50	s64	e50	e50	e50	e50	e50	e50	s51	e50	e50									47.0		49.0			52.0	55.0				50.0
+e51	e51	e51	e51	r35	e51	e51	e51	e51	r35	r35	e51	e51	e51	e51	r35	e51	e51	e51	e51	e51	r35	e51	r35	e51																			
+e52	e52	e52	e52	r37	e52	e52	e52	e52	r37	r37	e52	e52	e52	e52	r37	e52	e52	e52	e52	e52	r37	e52	r37	e52																			
+e53	e53	e53	e53	s30	e53	e53	e53	e53	s21	s24	e53	e53	e53	e53	s64	e53	e53	e53	e53	e53	e53	s51	e53	e53									47.0		49.0			52.0	55.0				53.0
+e54	e54	e54	e54	r36	e54	e54	e54	e54	r36	r36	e54	e54	e54	e54	r36	e54	e54	e54	e54	e54	r36	e54	r36	e54																			
+e55	e55	e55	e55	s30	e55	e55	e55	e55	s21	s24	e55	e55	e55	e55	s64	e55	e55	e55	e55	e55	s39	e55	s20	e55								75.0	54.0		69.0			70.0	55.0			71.0	
+e56	e56	e56	e56	s30	e56	e56	e56	e56	s21	s24	e56	e56	e56	e56	s64	e56	e56	e56	e56	s63	e56	e56	e56	e56									57.0		59.0			61.0	55.0		56.0		
+e57	e57	e57	e57	r25	e57	e57	e57	e57	r25	r25	e57	e57	e57	e57	r25	e57	e57	e57	e57	r25	r25	r25	r25	e57																			
+e58	e58	e58	e58	s30	e58	e58	e58	e58	s21	s24	e58	e58	e58	e58	s64	e58	e58	e58	e58	s63	e58	e58	e58	e58									57.0		59.0			61.0	55.0		58.0		
+e59	e59	e59	e59	r28	e59	e59	e59	e59	r28	r28	e59	e59	e59	e59	r28	e59	e59	e59	e59	r28	r28	r28	r28	e59																			
+e60	e60	e60	e60	s30	e60	e60	e60	e60	s21	s24	e60	e60	e60	e60	s64	e60	e60	e60	e60	s63	e60	e60	e60	e60									57.0		59.0			61.0	55.0		60.0		
+e61	e61	e61	e61	r29	e61	e61	e61	e61	r29	r29	e61	e61	e61	e61	r29	e61	e61	e61	e61	r29	r29	r29	r29	e61																			
+e62	e62	e62	e62	s30	e62	e62	e62	e62	s21	s24	e62	e62	e62	e62	s64	e62	e62	e62	e62	s63	e62	e62	e62	e62									57.0		59.0			61.0			62.0		
+e63	e63	e63	e63	r30	e63	e63	e63	e63	r30	r30	e63	e63	e63	e63	r30	e63	e63	e63	e63	r30	r30	r30	r30	e63																			
+e64	e64	e64	e64	r31	e64	e64	e64	e64	r31	r31	e64	e64	e64	e64	r31	e64	e64	e64	e64	r31	r31	r31	r31	e64																			
+e65	e65	e65	e65	e65	e65	e65	e65	e65	e65	e65	e65	e65	e65	e65	e65	s65	e65	e65	e65	e65	e65	e65	e65	e65																			
+e66	e66	e66	e66	s35	e66	e66	e66	e66	e66	e66	e66	s34	e66	e66	e66	e66	e66	e66	e66	e66	e66	e66	e66	e66													43.0			66.0			
+e67	e67	e67	e67	e67	e67	e67	e67	e67	e67	e67	e67	e67	e67	e67	e67	e67	s67	e67	e67	e67	e67	e67	e67	e67																			
+e68	e68	e68	e68	e68	e68	e68	e68	e68	e68	e68	e68	e68	e68	e68	e68	e68	e68	s68	e68	e68	e68	e68	e68	e68																			
+e69	e69	e69	e69	r26	e69	e69	e69	e69	r26	r26	e69	e69	e69	e69	r26	e69	e69	e69	e69	r26	e69	e69	e69	e69																			
+e70	e70	e70	e70	s30	e70	e70	e70	e70	s21	s24	e70	e70	e70	e70	s64	e70	e70	e70	e70	e70	s39	e70	s20	e70								74.0	54.0		69.0			70.0	55.0			71.0	
+e71	e71	e71	e71	s30	e71	e71	e71	e71	s21	s24	e71	e71	e71	e71	s64	e71	e71	e71	e71	e71	s39	e71	s20	e71								73.0	54.0		69.0			70.0	55.0			71.0	
+e72	e72	e72	e72	s30	e72	e72	e72	e72	s21	s24	e72	e72	e72	e72	s64	e72	e72	e72	e72	e72	s39	e72	s20	e72								72.0	54.0		69.0			70.0	55.0			71.0	
+e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	e73	r32																			
+e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	e74	r24																			
+e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	e75	r18																			
+e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	e76	r12																			

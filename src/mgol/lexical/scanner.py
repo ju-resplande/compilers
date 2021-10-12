@@ -2,6 +2,7 @@ from typing import TextIO
 
 
 from mgol.lexical.symbol_table import SymbolTable
+from mgol.lexical.error import ERROR_MAPPING
 from mgol.lexical.position import Position
 from mgol.lexical.afd import AFD
 from mgol.lexical.token_ import (
@@ -9,6 +10,7 @@ from mgol.lexical.token_ import (
     TOKEN_MAPPING,
     Token,
 )
+from mgol.utils import print_error_msg
 
 
 class Scanner:
@@ -49,6 +51,15 @@ class Scanner:
 
                     if token_class == "id":
                         self._symb_table.insert(token)
+
+                if token.classe.startswith("ERRO"):
+                    cur_pos = self.get_positions()
+                    print_error_msg(
+                        "Erro léxico",
+                        token.classe,
+                        ERROR_MAPPING[token.classe],
+                        cur_pos,
+                    )
 
                 return token
             elif not char in [" ", "\n", "\t"]:
