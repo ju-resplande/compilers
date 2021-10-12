@@ -14,9 +14,10 @@ from mgol.utils import print_error_msg
 
 
 class Scanner:
+    _afd = AFD()
+    _symb_table = SymbolTable(reserved_words=RESERVED_WORDS)
+
     def __init__(self):
-        self._afd = AFD()
-        self._symb_table = SymbolTable(reserved_words=RESERVED_WORDS)
         self._pos = Position()
 
     def get_positions(self) -> tuple:

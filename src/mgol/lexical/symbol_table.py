@@ -4,10 +4,10 @@ from mgol.lexical.token_ import Token
 
 
 class SymbolTable:
-    _tokens: Set[Token]
-
     def __init__(self, reserved_words: Set[str]):
-        self._tokens = {Token(lexema=word, classe=word) for word in reserved_words}
+        self._tokens: Set[Token] = {
+            Token(lexema=word, classe=word) for word in reserved_words
+        }
 
     def find(self, lexeme: str):
         for token in self._tokens:
