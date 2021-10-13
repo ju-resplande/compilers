@@ -17,8 +17,9 @@ class Scanner:
     _afd = AFD()
     _symb_table = SymbolTable(reserved_words=RESERVED_WORDS)
 
-    def __init__(self):
+    def __init__(self, debug=False):
         self._pos = Position()
+        self._debug = debug
 
     def get_positions(self) -> tuple:
         return self._pos.get_values()
@@ -31,8 +32,12 @@ class Scanner:
         token_class = None
 
         while self._pos.update(char, lexeme):
-            char = file.read(1)
-            # print(self.get_positions(), repr(char))
+            char = file.read(1) if char != "" else "$"
+
+            if self._debug:
+                print(f"state: {state}")
+                print(f"lexeme: {lexeme}")
+                print(self.get_positions(), repr(char))
 
             state = self._afd.run(char, state)
             prev_token_class = token_class

@@ -14,5 +14,5 @@ class Position:
             self.col = self.col + 1 if char != "\n" else 0
             self.line = self.line if char != "\n" else self.line + 1
 
-        return char != "" or lexeme != ""
+        return lexeme != "" or char != ""
 

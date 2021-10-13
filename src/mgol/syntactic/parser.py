@@ -19,7 +19,6 @@ class Parser:
         "entao",
         "fimse",
         "fimrepita",
-        "fc_p",
     ]
 
     with open(os.path.join(_srl_dir, "grammar.json")) as f:
@@ -81,8 +80,8 @@ class Parser:
             if token_class in self._sync_symbols or token_class == "$":
                 break
 
-            if token_class == "id":
-                exit()
+            # if token_class == "id":
+            #    exit()
 
         if self._debug:
             print(f"sync_symbol: {token_class}")

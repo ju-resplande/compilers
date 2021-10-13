@@ -5,20 +5,22 @@ from mgol.lexical.scanner import Scanner
 
 def main():
     if len(sys.argv) < 1:
-        raise ValueError("Usage: python scanner.py example1.mgol")
+        raise ValueError("Usage: python scanner.py example1.mgol [--debug]")
     else:
         filename = sys.argv[1]
 
-    scanner = Scanner()
+    to_debug = "--debug" in sys.argv
+    scanner = Scanner(debug=to_debug)
 
     with open(filename) as f:
-        token = scanner.scan(f)
+        while True:
+            token = scanner.scan(f)
 
-        while token.classe != "EOF":
             if token.classe != "comentário":
                 print(token)
 
-            token = scanner.scan(f)
+            if token.classe == "EOF":
+                return
 
 
 if __name__ == "__main__":
