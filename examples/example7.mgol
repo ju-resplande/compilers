@@ -1,0 +1,9 @@
+inicio 
+    varinicio
+        literal aux;
+        real C;
+    varfim; 
+    C<-5.
+    escreva "Digite B";
+    escreva "Digite A";
+fim

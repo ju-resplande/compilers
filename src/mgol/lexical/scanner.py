@@ -54,12 +54,8 @@ class Scanner:
                         self._symb_table.insert(token)
 
                 if token.classe.startswith("ERRO"):
-                    cur_pos = self.get_positions()
                     print_error_msg(
-                        "Erro léxico",
-                        token.classe,
-                        ERROR_MAPPING[token.classe],
-                        cur_pos,
+                        "Erro léxico", token.classe, ERROR_MAPPING[token.classe], self,
                     )
 
                 return token
