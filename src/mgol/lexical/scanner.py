@@ -21,8 +21,8 @@ class Scanner:
         self._pos = Position()
         self._debug = debug
 
-    def get_positions(self) -> tuple:
-        return self._pos.get_values()
+    def get_positions(self, prev_pos) -> tuple:
+        return self._pos.get_values(prev_pos)
 
     def scan(self, file: TextIO) -> Token:
         char = "start"
@@ -35,9 +35,9 @@ class Scanner:
             char = file.read(1) if char != "" else "$"
 
             if self._debug:
-                print(f"state: {state}")
-                print(f"lexeme: {lexeme}")
-                print(self.get_positions(), repr(char))
+                # print(f"state: {state}")
+                # print(f"lexeme: {lexeme}")
+                print(self.get_positions(prev_pos=False), repr(char))
 
             state = self._afd.run(char, state)
             prev_token_class = token_class
@@ -60,7 +60,11 @@ class Scanner:
 
                 if token.classe.startswith("ERRO"):
                     print_error_msg(
-                        "Erro léxico", token.classe, ERROR_MAPPING[token.classe], self,
+                        "Erro léxico",
+                        token.classe,
+                        ERROR_MAPPING[token.classe],
+                        self,
+                        prev_pos=True,
                     )
 
                 return token

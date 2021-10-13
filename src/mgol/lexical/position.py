@@ -1,18 +1,24 @@
-from typing import Tuple
+from typing import List
 
 
 class Position:
-    col = 0
-    line = 0
+    def __init__(self) -> None:
+        self._cur_pos = [1, 1]
+        self._prev_pos = [1, 1]
 
-    def get_values(self) -> Tuple[int]:
-        pos = (self.line, self.col)
+    def get_values(self, prev_pos) -> List[int]:
+        pos = self._cur_pos if not prev_pos else self._prev_pos
+
         return pos
 
-    def update(self, char: str, lexeme: str) -> True:
+    def update(self, char: str, lexeme: str) -> bool:
+        self._prev_pos = self._cur_pos.copy()
+
         if char != "start":
-            self.col = self.col + 1 if char != "\n" else 0
-            self.line = self.line if char != "\n" else self.line + 1
+            self._cur_pos[0] = (
+                self._cur_pos[0] if char != "\n" else self._cur_pos[0] + 1
+            )
+            self._cur_pos[1] = self._cur_pos[1] + 1 if char != "\n" else 1
 
         return lexeme != "" or char != ""
 
