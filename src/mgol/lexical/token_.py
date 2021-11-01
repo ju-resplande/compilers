@@ -21,7 +21,7 @@ class Token:
             self.tipo = "NULO"
 
     def __repr__(self):
-        return f"Classe: {self.classe}, Lexema: {self.lexema}, Tipo: {self.tipo}"
+        return f"<Classe: {self.classe}, Lexema: {self.lexema}, Tipo: {self.tipo}>"
 
 
 TOKEN_MAPPING: Dict[int, str] = {

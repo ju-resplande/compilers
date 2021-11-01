@@ -10,7 +10,7 @@ def main():
         filename = sys.argv[1]
 
     to_debug = "--debug" in sys.argv
-    parser = Parser(debug=to_debug)
+    parser = Parser(filename=filename, debug=to_debug)
 
     with open(filename) as f:
         parser.parse(f)

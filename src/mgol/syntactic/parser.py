@@ -1,12 +1,15 @@
 import os
 import json
-from typing import TextIO, List
+from typing import TextIO
+from pprint import pprint
 
 
 import pandas as pd
 
-from mgol.utils import print_error_msg
+from mgol.utils import print_error_msg, grammar_rule_as_str
 from mgol.lexical.scanner import Scanner
+from mgol.lexical.token_ import Token
+from mgol.semantic.semantics import Semantics
 
 
 class Parser:
@@ -26,11 +29,20 @@ class Parser:
 
     _accept_rule = _grammar[0]
 
-    def __init__(self, debug=False):
-        self._stack = [0]
-        self._scanner = Scanner()
+    def __init__(self, filename: str, debug: bool = False):
+        self._filename = filename
         self._debug = debug
-        self._sync_stack = [0]
+
+        self._stack = dict()
+        self._stack["semantic"] = []
+        self._stack["sync_semantic"] = []
+        self._stack["syntactic"] = [0]
+        self._stack["sync_syntactic"] = [0]
+
+        self._scanner = Scanner()
+        self._semantics = Semantics(
+            src_fname=self._filename, symb_table=self._scanner.symb_table,
+        )
 
     def _get_next_symbol(self, file: TextIO) -> str:
         while True:
@@ -47,15 +59,7 @@ class Parser:
         if self._debug:
             print(token)
 
-        # if token.lexema == "m":
-        #    exit()
-
-        return token_class
-
-    def _print_grammar_rule(self, grammar_rule: List[str]):
-        grammar_rule = grammar_rule[0] + " -> " + " ".join(grammar_rule[1:])
-
-        print(grammar_rule)
+        return token_class, token
 
     def _print_error_msg(
         self, state: str, number: int, prev_token_class: str, token_class: str
@@ -80,29 +84,29 @@ class Parser:
             if token_class in self._sync_symbols or token_class == "$":
                 break
 
-            # if token_class == "id":
-            #    exit()
-
         if self._debug:
             print(f"sync_symbol: {token_class}")
 
-        self._stack = self._sync_stack
+        self._stack["syntactic"] = self._stack["sync_syntactic"]
 
         return token_class
 
     def parse(self, file: TextIO):
-        token_class = self._get_next_symbol(file)
+        token_class, token = self._get_next_symbol(file)
+
         prev_token_class = "o começo do programa"
 
         while True:
-            state = self._stack[-1]
+            state = self._stack["syntactic"][-1]
 
             if token_class in self._sync_symbols:
-                self._sync_stack = self._stack.copy()
+                self._stack["sync_syntactic"] = self._stack["syntactic"].copy()
+                self._stack["sync_semantic"] = self._stack["semantic"].copy()
 
             if self._debug:
                 print("\n")
-                print(self._stack)
+                print(self._stack["syntactic"])
+                pprint(self._stack["semantic"])
                 print(f"Current State: {state}")
 
             action_number = self._srl[token_class][state]  # pandas column-oriented
@@ -128,33 +132,53 @@ class Parser:
 
                     return
             elif action == "s":
-                self._stack.append(number)
+                self._stack["syntactic"].append(number)
 
                 prev_token_class = token_class
-                token_class = self._get_next_symbol(file)
+
+                self._stack["semantic"].append(token)
+                token_class, token = self._get_next_symbol(file)
             elif action == "r":
                 grammar_rule = self._grammar[number - 1]
 
                 if self._debug:
                     print(f"Rule: {number}")
 
-                for _ in grammar_rule[1:]:
-                    state = self._stack.pop()
-
-                if self._debug:
-                    print(self._stack)
-
                 non_terminal = grammar_rule[0]
-                state = self._stack[-1]
+                non_terminal_token = Token(lexema=non_terminal, classe=[])
+
+                grammar_tokens = dict()
+                grammar_tokens[non_terminal] = [non_terminal_token]
+                for token_name in reversed(grammar_rule[1:]):
+                    self._stack["syntactic"].pop()
+                    grammar_token = self._stack["semantic"].pop()
+
+                    if token_name not in grammar_tokens:
+                        grammar_tokens[token_name] = list()
+
+                    grammar_tokens[token_name].append(grammar_token)
 
                 if self._debug:
-                    print(non_terminal)
+                    print(self._stack["syntactic"])
+                    pprint(self._stack["semantic"])
+
+                state = self._stack["syntactic"][-1]
+
+                self._semantics.run(grammar_tokens, number)
+
+                if self._debug:
+                    print(non_terminal_token)
 
                 state = int(self._srl[non_terminal][state])
-                # pandas column-oriented
-                self._stack.append(state)
 
-                self._print_grammar_rule(grammar_rule)
+                # pandas column-oriented
+                self._stack["syntactic"].append(state)
+                self._stack["semantic"].append(non_terminal_token)
+
+            if action in ["a", "r"]:
+                grammar_rule = grammar_rule if action == "r" else self._accept_rule
+
+                # print(grammar_rule_as_str(grammar_rule))
+
             if action == "a":
-                self._print_grammar_rule(self._accept_rule)
                 break

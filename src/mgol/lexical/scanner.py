@@ -15,7 +15,7 @@ from mgol.utils import print_error_msg
 
 class Scanner:
     _afd = AFD()
-    _symb_table = SymbolTable(reserved_words=RESERVED_WORDS)
+    symb_table = SymbolTable(reserved_words=RESERVED_WORDS)
 
     def __init__(self, debug=False):
         self._pos = Position()
@@ -49,14 +49,14 @@ class Scanner:
 
                 if lexeme in RESERVED_WORDS:
                     token_class = lexeme
-                elif token_class == ["id"]:
-                    token = self._symb_table.find(lexeme)
+                elif token_class == "id":
+                    token = self.symb_table.find(lexeme)
 
                 if not (token_class == "id" and token != None):
                     token = Token(lexema=lexeme, classe=token_class)
 
                     if token_class == "id":
-                        self._symb_table.insert(token)
+                        self.symb_table.insert(token)
 
                 if token.classe.startswith("ERRO"):
                     print_error_msg(

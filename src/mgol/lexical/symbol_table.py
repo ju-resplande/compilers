@@ -6,19 +6,12 @@ from mgol.lexical.token_ import Token
 class SymbolTable:
     def __init__(self, reserved_words: Set[str]):
         self._tokens: Set[Token] = {
-            Token(lexema=word, classe=word) for word in reserved_words
+            word: Token(lexema=word, classe=word) for word in reserved_words
         }
 
     def find(self, lexeme: str):
-        for token in self._tokens:
-            if token.lexema == lexeme:
-                return token
-
-        return None
+        return self._tokens.get(lexeme)
 
     def insert(self, token: Token):
-        self._tokens.add(token)
-
-    def update(self):
-        raise NotImplementedError()
+        self._tokens.update({token.lexema: token})
 
