@@ -41,7 +41,9 @@ class Parser:
 
         self._scanner = Scanner()
         self._semantics = Semantics(
-            src_fname=self._filename, symb_table=self._scanner.symb_table,
+            src_fname=self._filename,
+            symb_table=self._scanner.symb_table,
+            scanner=self._scanner,
         )
 
     def _get_next_symbol(self, file: TextIO) -> str:
@@ -178,7 +180,8 @@ class Parser:
             if action in ["a", "r"]:
                 grammar_rule = grammar_rule if action == "r" else self._accept_rule
 
-                # print(grammar_rule_as_str(grammar_rule))
+                if self._debug:
+                    print(grammar_rule_as_str(grammar_rule))
 
             if action == "a":
                 break
