@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 import json
 import os
 
@@ -14,22 +14,27 @@ class Semantics:
     with open(os.path.join(_srl_dir, "grammar.json")) as f:
         _grammar = json.load(f)
 
-    def __init__(self, src_fname: str, symb_table: SymbolTable, scanner: Scanner):
+    def __init__(
+        self,
+        src_fname: str,
+        symb_table: SymbolTable,
+        scanner: Scanner,
+        stack: List[str],
+    ):
         self._src_fname = src_fname
         self._obj_fname = src_fname.replace(".mgol", ".c")
         self._obj_file = open(self._obj_fname, "w")
-        self._imprimir = self._obj_file.write
-        self._imprimir(self._HEADER)
-
-        self._temp_vars = []
-
-        self._ident = 1
-        self._make_ident = lambda: self._ident * " " * 4
 
         self._symb_table = symb_table
         self._scanner = scanner
+        self._stack = stack
 
-        # TODO: espaços comidos no entre parênteses
+        self._imprimir(self._HEADER)
+
+        self._ident = 1
+        self._make_ident = lambda: self._ident * " " * 4
+        self._temp_vars = []
+
         # TODO: testar erros
 
     def _copy_attrs(self, var1: Token, var2: Token):
@@ -47,17 +52,37 @@ class Semantics:
         for temp_idx, temp_var_type in enumerate(self._temp_vars):
             temp_var_declaration += f"    {temp_var_type} T{temp_idx}; \n"
 
-        temp_var_declaration += "    /*------------------------------*/\n"
+        temp_var_declaration += "    /*-----------------------------*/\n"
 
         obj_string = obj_string[:idx] + temp_var_declaration + obj_string[idx:]
 
         with open(self._obj_fname, "w") as f:
-            f.write(obj_string, f)
+            f.write(obj_string)
+
+    def _imprimir(self, text: str):
+        loop_token = None
+
+        for token in reversed(self._stack):
+            if token.classe == "repita":
+                loop_token = token
+                break
+
+        if loop_token:
+            if loop_token.lexema == "repita":
+                loop_token.lexema = list()
+
+            loop_token.lexema.append(text)
+        else:
+            self._obj_file.write(text)
 
     def run(self, grammar_tokens: Dict[str, Token], rule_number: int):
         if rule_number in self._NO_ACTION_RULES:
             pass
-        if rule_number == 5:
+        elif rule_number == 2:
+            self._imprimir("}\n")
+            self._obj_file.close()
+            self._make_temp_declarations()
+        elif rule_number == 5:
             self._imprimir("\n\n\n")
         elif rule_number == 6:
             grammar_tokens["L"][0].tipo = grammar_tokens["TIPO"][0].tipo
@@ -65,8 +90,6 @@ class Semantics:
             for token_lemma in grammar_tokens["L"][0].classe:
                 token_found = self._symb_table.find(token_lemma)
                 token_found.tipo = grammar_tokens["L"][0].tipo
-
-            # print(self._symb_table._tokens)
 
             self._imprimir(";\n")
         elif rule_number == 7:
@@ -163,7 +186,7 @@ class Semantics:
                 + grammar_tokens["rcb"][0].lexema.replace("<-", "=")
                 + " "
                 + grammar_tokens["LD"][0].lexema
-                + "\n"
+                + ";\n"
             )
 
             self._imprimir(attribution)
@@ -198,7 +221,7 @@ class Semantics:
             tx_name = f"T{len(self._temp_vars)}"
 
             self._temp_vars.append(grammar_tokens["OPRD"][0].tipo)
-            self._imprimir(self._make_ident() + tx_name + " = " + tx_lexema + "\n")
+            self._imprimir(self._make_ident() + tx_name + " = " + tx_lexema + ";\n")
             grammar_tokens["LD"][0].lexema = tx_name
             grammar_tokens["LD"][0].tipo = grammar_tokens["OPRD"][0].tipo
 
@@ -247,31 +270,28 @@ class Semantics:
                 + grammar_tokens["opr"][0].lexema
                 + " "
                 + grammar_tokens["OPRD"][0].lexema
-                + "\n"
             )
 
             tx_name = f"T{len(self._temp_vars)}"
 
             self._temp_vars.append(grammar_tokens["OPRD"][0].tipo)
-            self._imprimir(self._make_ident() + tx_name + " = " + tx_lexema + "\n")
+            self._imprimir(self._make_ident() + tx_name + " = " + tx_lexema + ";\n")
             grammar_tokens["EXP_R"][0].lexema = tx_name
-
         elif rule_number == 33:
-            self._imprimir(
-                self._make_ident()
-                + f"while ({grammar_tokens['EXP_R'][0].lexema})"
-                + "{\n"
-            )
+            tx_name = grammar_tokens["EXP_R"][0].lexema
 
-            self._ident += 1
-        elif rule_number == 37:
-            self._ident -= 1
+            cmds = grammar_tokens["repita"][0].lexema
+            cond_loop = cmds[0]
+
+            self._imprimir(cond_loop)
+            self._imprimir(self._make_ident() + f"while ({tx_name})" + "{\n")
+
+            for cmd in cmds[1:]:
+                self._imprimir("    " + cmd)
+
+            self._imprimir("    " + cond_loop)
+
             self._imprimir(self._make_ident() + "}\n")
-
-        elif rule_number == 38:
-            self._imprimir("}\n")
-            self._obj_file.close()
-            self._make_temp_declarations()
 
     _TEMP_HEADER = "    /*----Variaveis temporarias----*/"
 
@@ -289,7 +309,6 @@ void main(void)
 
     _NO_ACTION_RULES = [
         1,
-        2,
         3,
         4,
         12,
@@ -303,4 +322,5 @@ void main(void)
         34,
         35,
         36,
+        37,
     ]

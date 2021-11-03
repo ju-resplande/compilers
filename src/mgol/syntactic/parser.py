@@ -36,6 +36,7 @@ class Parser:
         self._stack = dict()
         self._stack["semantic"] = []
         self._stack["sync_semantic"] = []
+
         self._stack["syntactic"] = [0]
         self._stack["sync_syntactic"] = [0]
 
@@ -44,6 +45,7 @@ class Parser:
             src_fname=self._filename,
             symb_table=self._scanner.symb_table,
             scanner=self._scanner,
+            stack=self._stack["semantic"],
         )
 
     def _get_next_symbol(self, file: TextIO) -> str:
