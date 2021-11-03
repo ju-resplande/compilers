@@ -68,7 +68,7 @@ class Scanner:
                     )
 
                 return token
-            elif not char in [" ", "\n", "\t"]:
+            elif not (char in [" ", "\n", "\t"] and not lexeme.startswith('"')):
                 lexeme = lexeme + char
 
         return Token("$", "EOF")
