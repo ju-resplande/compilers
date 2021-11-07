@@ -27,7 +27,7 @@ $ pip install -e .
 1. Scanner (T1)
 
    ```bash
-   $ python scanner.py examples/example4.mgol
+   $ python scanner.py examples/example2.mgol
    ```
 
    
@@ -35,7 +35,7 @@ $ pip install -e .
 2. Parser (T2/T3)
 
    ```bash
-   $ python parser.py examples/example4.mgol
+   $ python parser.py examples/example2.mgol
    ```
 
    
