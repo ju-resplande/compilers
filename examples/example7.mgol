@@ -1,8 +1,0 @@
-inicio
-    varinicio
-        literal B;
-        real C;
-    varfim;
-    B <- "ola";
-    C <- 3 * B;
-fim

@@ -1,8 +1,0 @@
-inicio
-    varinicio
-        literal B;
-        real C;
-    varfim;
-    leia B;
-    C <- 3 * D;
-fim

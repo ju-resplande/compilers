@@ -1,6 +1,0 @@
-inicio
-    varinicio
-        real C;
-    varfim;
-    C <- 2.3 + 2;
-fim

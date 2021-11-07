@@ -1,8 +1,0 @@
-inicio
-    varinicio
-        real B;
-        real C;
-    varfim;
-    B <- 2.0;
-    C <- 3 * 3.0;
-fim

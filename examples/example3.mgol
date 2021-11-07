@@ -1,7 +1,30 @@
 inicio
     varinicio
-        inteiro D;
+        inteiro A;
         real C;
     varfim;
+    escreva "Digite B";
+    
+    {Erro regra 13}
+    leia B;
+    
+    {Erro regra 17}
     escreva B;
+    
+    {Erro regra 19}
+    B <- 1;
+    
+    {Erro regra 19}
+    A <- 2.3;
+    
+    {Erro regra 20}
+    C <- 2*2.3;
+    
+    {Erro regra 20}
+    A <- 2*"olha";
+    
+    {Erro regra 22}
+    repita (B<E)
+        escreva 12;
+    fimrepita
 fim
