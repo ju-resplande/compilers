@@ -1,0 +1,13 @@
+inicio
+    varinicio
+        inteiro B;
+        real E;
+    varfim;
+    escreva "Digite B";
+    leia B;
+    repita (B<E)
+        D<-B+2;
+        escreva D;
+        B<-B+1;
+    fimrepita
+fim

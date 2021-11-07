@@ -1,7 +1,8 @@
 inicio
     varinicio
-        inteiro D;
+        inteiro B;
         real C;
     varfim;
-    B <- 1;
+    C <- 2.3;
+    B <- C;
 fim

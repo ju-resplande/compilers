@@ -1,7 +1,8 @@
 inicio
     varinicio
-        inteiro D;
+        literal B;
         real C;
     varfim;
-    B <- 1;
+    B <- "ola";
+    C <- 3 * B;
 fim

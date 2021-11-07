@@ -1,11 +1,7 @@
 inicio
     varinicio
-        inteiro B;
+        inteiro D;
+        real C;
     varfim;
-    escreva "Digite B";
-    leia B;
-    repita (B<5)
-       B<-B+1;
-    fimrepita
-    escreva "tudobem";
+    escreva B;
 fim
