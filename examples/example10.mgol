@@ -1,8 +1,0 @@
-varinicio
-        literal aux;
-        real C;
-    varfim; 
-    C<-5.0;
-    escreva "DigiteB";
-    escreva "Digite A";
-fim

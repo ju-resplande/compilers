@@ -1,7 +1,7 @@
 inicio
     varinicio
         literal A,B;
-        inteiro E;
+        inteiro B;
         inteiro D;
         real C ;
     varfim;
@@ -22,14 +22,14 @@ inicio
     D<-B;
     C<-5.0;
     repita (B<5)
-       D<-B+2;
-       escreva D;
-       B<-B+1;
+        D<-B+2;
+        escreva D;
+        B<-B+1;
     fimrepita
-    escreva "B=";
+    escreva "D=";
     escreva D;
-    escreva "ola";
+    escreva "C=";
     escreva C;
-    escreva "tudobem";
+    escreva "A=";
     escreva A;
 fim
