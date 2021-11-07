@@ -137,11 +137,11 @@ class Semantics:
             arg = grammar_tokens["ARG"][0]
 
             if arg.tipo == "literal":
-                self._imprimir(self._make_ident() + f'printf("%s", {arg.lexema});\n')
+                self._imprimir(self._make_ident() + f'printf("%s", {arg.lexema}\n);\n')
             elif arg.tipo == "inteiro":
-                self._imprimir(self._make_ident() + f'printf("%d", {arg.lexema});\n')
+                self._imprimir(self._make_ident() + f'printf("%d", {arg.lexema}\n);\n')
             elif arg.tipo == "real":
-                self._imprimir(self._make_ident() + f'printf("%lf", {arg.lexema});\n')
+                self._imprimir(self._make_ident() + f'printf("%lf", {arg.lexema}\n);\n')
         elif rule_number == 15:
             self._copy_attrs(grammar_tokens["lit"][0], grammar_tokens["ARG"][0])
         elif rule_number == 16:
