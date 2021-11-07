@@ -28,7 +28,7 @@ $ pip install -e .
 $ mgol examples/example2.mgol
 ```
 
-## Partial Code
+### Partial Functions
 1. Scanner (T1)
 
    ```bash
