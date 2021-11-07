@@ -45,7 +45,6 @@ class Parser:
             src_fname=self._filename,
             symb_table=self._scanner.symb_table,
             scanner=self._scanner,
-            stack=self._stack["semantic"],
         )
 
     def _get_next_symbol(self, file: TextIO) -> str:
@@ -66,7 +65,12 @@ class Parser:
         return token_class, token
 
     def _print_error_msg(
-        self, state: str, number: int, prev_token_class: str, token_class: str
+        self,
+        state: str,
+        number: int,
+        prev_token_class: str,
+        token_class: str,
+        token: Token,
     ):
         state_actions = self._srl.iloc[state]
 
@@ -79,13 +83,13 @@ class Parser:
             f'Mas recebeu "{token_class}" no lugar'
         )
 
-        print_error_msg("Erro sintático", f"ERRO{number}", err_desc, self._scanner)
+        print_error_msg("Erro sintático", f"ERRO{number}", err_desc, token)
 
     def _recovery(self, token_class: str, file: TextIO):
         while True:
-            token_class = self._get_next_symbol(file)
+            token_class, token = self._get_next_symbol(file)
 
-            if token_class in self._sync_symbols or token_class == "$":
+            if token_class in self._sync_symbols or token_class in ["$", "fim"]:
                 break
 
         if self._debug:
@@ -93,7 +97,7 @@ class Parser:
 
         self._stack["syntactic"] = self._stack["sync_syntactic"]
 
-        return token_class
+        return token_class, token
 
     def parse(self, file: TextIO):
         token_class, token = self._get_next_symbol(file)
@@ -123,15 +127,18 @@ class Parser:
                 )
 
             if action == "e":
-                self._print_error_msg(state, number, prev_token_class, token_class)
-                token_class = self._recovery(token_class, file)
+                self._print_error_msg(
+                    state, number, prev_token_class, token_class, token
+                )
 
-                if token_class == "$":
+                token_class, token = self._recovery(token_class, file)
+
+                if token_class in ["$", "fim"]:
                     print_error_msg(
                         "Erro sintático",
                         "ERRO76",
                         "arquivo finalizado antes do esperado",
-                        self._scanner,
+                        token,
                     )
 
                     return
@@ -141,6 +148,9 @@ class Parser:
                 prev_token_class = token_class
 
                 self._stack["semantic"].append(token)
+                if token.classe == "repita":
+                    self._semantics._loop_stack.append(token)
+
                 token_class, token = self._get_next_symbol(file)
             elif action == "r":
                 grammar_rule = self._grammar[number - 1]
@@ -149,13 +159,18 @@ class Parser:
                     print(f"Rule: {number}")
 
                 non_terminal = grammar_rule[0]
-                non_terminal_token = Token(lexema=non_terminal, classe=[])
+                non_terminal_token = Token(
+                    lexema=non_terminal, classe=[], posicao=token.posicao
+                )
 
                 grammar_tokens = dict()
                 grammar_tokens[non_terminal] = [non_terminal_token]
                 for token_name in reversed(grammar_rule[1:]):
                     self._stack["syntactic"].pop()
                     grammar_token = self._stack["semantic"].pop()
+
+                    if grammar_token.classe == "repita":
+                        self._semantics._loop_stack.pop()
 
                     if token_name not in grammar_tokens:
                         grammar_tokens[token_name] = list()

@@ -15,11 +15,7 @@ class Semantics:
         _grammar = json.load(f)
 
     def __init__(
-        self,
-        src_fname: str,
-        symb_table: SymbolTable,
-        scanner: Scanner,
-        stack: List[str],
+        self, src_fname: str, symb_table: SymbolTable, scanner: Scanner,
     ):
         self._src_fname = src_fname
         self._obj_fname = src_fname.replace(".mgol", ".c")
@@ -27,7 +23,7 @@ class Semantics:
 
         self._symb_table = symb_table
         self._scanner = scanner
-        self._stack = stack
+        self._loop_stack = list()
 
         self._imprimir(self._HEADER)
 
@@ -59,13 +55,15 @@ class Semantics:
         with open(self._obj_fname, "w") as f:
             f.write(obj_string)
 
+    def _id_is_declared(self, id_token: Token):
+        return id_token.tipo in ["inteiro", "real", "literal"]
+
     def _imprimir(self, text: str):
         loop_token = None
 
-        for token in reversed(self._stack):
-            if token.classe == "repita":
-                loop_token = token
-                break
+        for token in reversed(self._loop_stack):
+            loop_token = token
+            break
 
         if loop_token:
             if loop_token.lexema == "repita":
@@ -131,13 +129,13 @@ class Semantics:
                     "Erro semântico",
                     "ERRO1",
                     f"variável {id_token.lexema} não declarada",
-                    self._scanner,
+                    id_token,
                 )
                 exit()
 
         elif rule_number == 14:
             self._imprimir(
-                self._make_ident() + f"print({grammar_tokens['ARG'][0].lexema});\n"
+                self._make_ident() + f"printf({grammar_tokens['ARG'][0].lexema});\n"
             )
         elif rule_number == 15:
             self._copy_attrs(grammar_tokens["lit"][0], grammar_tokens["ARG"][0])
@@ -147,12 +145,12 @@ class Semantics:
             id_token = grammar_tokens["id"][0].lexema
             id_token = self._symb_table.find(id_token)
 
-            if id_token.tipo == "NULO":
+            if not self._id_is_declared(id_token):
                 print_error_msg(
                     "Erro semântico",
                     "ERRO1",
                     f"variável {id_token.lexema} não declarada",
-                    self._scanner,
+                    id_token,
                 )
                 exit()
 
@@ -161,12 +159,12 @@ class Semantics:
             id_token = grammar_tokens["id"][0].lexema
             id_token = self._symb_table.find(id_token)
 
-            if id_token.tipo == "NULO":
+            if not self._id_is_declared(id_token):
                 print_error_msg(
                     "Erro semântico",
                     "ERRO1",
                     f"variável {id_token.lexema} não declarada",
-                    self._scanner,
+                    id_token,
                 )
                 exit()
             elif grammar_tokens["LD"][0].tipo != grammar_tokens["id"][0].tipo:
@@ -174,9 +172,8 @@ class Semantics:
                     "Erro semântico",
                     "ERRO4",
                     "Tipos diferentes para atribuição",
-                    self._scanner,
+                    grammar_tokens["rcb"][0],
                 )
-
                 exit()
 
             attribution = (
@@ -196,9 +193,9 @@ class Semantics:
                     "Erro semântico",
                     "ERRO2",
                     "operandos"
-                    f"{grammar_tokens['OPRD'][0].lexema} e {grammar_tokens['OPRD'][1].lexema}",
-                    "com tipos incompatíveis",
-                    self._scanner,
+                    f" {grammar_tokens['OPRD'][0].lexema} e {grammar_tokens['OPRD'][1].lexema}"
+                    " com tipos incompatíveis",
+                    grammar_tokens["opm"][0],
                 )
                 exit()
             elif grammar_tokens["OPRD"][0].tipo == "literal":
@@ -206,7 +203,7 @@ class Semantics:
                     "Erro semântico",
                     "ERRO3",
                     "operandos não podem ser literais",
-                    self._scanner,
+                    grammar_tokens["OPRD"][0],
                 )
                 exit()
 
@@ -231,12 +228,12 @@ class Semantics:
             id_token = grammar_tokens["id"][0].lexema
             id_token = self._symb_table.find(id_token)
 
-            if id_token.tipo == "NULO":
+            if not self._id_is_declared(id_token):
                 print_error_msg(
                     "Erro semântico",
                     "ERRO1",
                     f"variável {id_token.lexema} não declarada",
-                    self._scanner,
+                    id_token,
                 )
                 exit()
             else:
@@ -258,9 +255,9 @@ class Semantics:
                     "Erro semântico",
                     "ERRO2",
                     "operandos"
-                    f"{grammar_tokens['OPRD'][0].lexema} e {grammar_tokens['OPRD'][1].lexema}",
-                    "com tipos incompatíveis",
-                    self._scanner,
+                    f" {grammar_tokens['OPRD'][0].lexema} e {grammar_tokens['OPRD'][1].lexema}"
+                    " com tipos incompatíveis",
+                    grammar_tokens["opr"][0],
                 )
                 exit()
 

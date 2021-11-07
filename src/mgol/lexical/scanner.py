@@ -35,8 +35,8 @@ class Scanner:
             char = file.read(1) if char != "" else "$"
 
             if self._debug:
-                # print(f"state: {state}")
-                # print(f"lexeme: {lexeme}")
+                print(f"state: {state}")
+                print(f"lexeme: {lexeme}")
                 print(self.get_positions(prev_pos=False), repr(char))
 
             state = self._afd.run(char, state)
@@ -53,22 +53,22 @@ class Scanner:
                     token = self.symb_table.find(lexeme)
 
                 if not (token_class == "id" and token != None):
-                    token = Token(lexema=lexeme, classe=token_class)
+                    token = Token(
+                        lexema=lexeme,
+                        classe=token_class,
+                        posicao=self.get_positions(prev_pos=True),
+                    )
 
                     if token_class == "id":
                         self.symb_table.insert(token)
 
                 if token.classe.startswith("ERRO"):
                     print_error_msg(
-                        "Erro léxico",
-                        token.classe,
-                        ERROR_MAPPING[token.classe],
-                        self,
-                        prev_pos=True,
+                        "Erro léxico", token.classe, ERROR_MAPPING[token.classe], token,
                     )
 
                 return token
             elif not (char in [" ", "\n", "\t"] and not lexeme.startswith('"')):
                 lexeme = lexeme + char
 
-        return Token("$", "EOF")
+        return Token("$", "EOF", None)

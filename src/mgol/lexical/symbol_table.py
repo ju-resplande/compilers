@@ -6,7 +6,8 @@ from mgol.lexical.token_ import Token
 class SymbolTable:
     def __init__(self, reserved_words: Set[str]):
         self._tokens: Set[Token] = {
-            word: Token(lexema=word, classe=word) for word in reserved_words
+            word: Token(lexema=word, classe=word, posicao=None)
+            for word in reserved_words
         }
 
     def find(self, lexeme: str):

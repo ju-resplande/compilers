@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Set, Dict
+from typing import Set, Dict, List
 
 
 @dataclass(unsafe_hash=True)
@@ -7,6 +7,7 @@ class Token:
     lexema: str = field(hash=True)
     classe: str
     tipo: str = field(init=False)
+    posicao: List[int]
 
     def __post_init__(self):
         if self.classe == "NUM":
@@ -21,7 +22,7 @@ class Token:
             self.tipo = "NULO"
 
     def __repr__(self):
-        return f"<Classe: {self.classe}, Lexema: {self.lexema}, Tipo: {self.tipo}>"
+        return f"<Classe: {self.classe}, Lexema: {self.lexema}, Tipo: {self.tipo} na linha {self.posicao[0]} e coluna {self.posicao[1]}>"
 
 
 TOKEN_MAPPING: Dict[int, str] = {
