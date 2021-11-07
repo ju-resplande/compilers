@@ -1,4 +1,4 @@
-# Compilers
+# Compilers - mgol
 
 Homework assignments for Compilers at 2021/2 in Federal University of Goiás.
 
@@ -24,6 +24,11 @@ $ pip install -e .
 
 ## Usage
 
+```bash
+$ mgol examples/example2.mgol
+```
+
+## Partial Code
 1. Scanner (T1)
 
    ```bash
