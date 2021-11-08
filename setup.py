@@ -22,5 +22,6 @@ setup(
     install_requires=["pandas",],
     packages=find_packages(where="src"),  # Required
     python_requires=">=3.7",
+    entry_points={"console_scripts": ["mgol=mgol.parser:main"]},
 )
 
