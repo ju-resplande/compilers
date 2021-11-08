@@ -1,4 +1,4 @@
-# Compilers - mgol
+
 <div align="center">
 <img src=https://user-images.githubusercontent.com/28462295/140796528-ae596d1b-e3d7-4fcf-b477-b7b44d89cba7.png>
    
